@@ -1,0 +1,7 @@
+# Ignore database configuration (contains passwords)
+db.php
+
+# Ignore XAMPP/OS temporary files
+Thumbs.db
+.DS_Store
+*.log
