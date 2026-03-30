@@ -1,0 +1,342 @@
+/* --- GLOBAL RESET & DARK THEME --- */
+:root {
+    --primary: #e50914; /* Netflix Red */
+    --dark: #141414;    /* Deep Black Background */
+    --light: #fff;
+    --gray: #aaa;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: var(--dark);
+    color: var(--light);
+    overflow-x: hidden;
+}
+
+/* --- NAVBAR (Glass Effect) --- */
+.navbar {
+    position: fixed;
+    top: 0; width: 100%;
+    padding: 20px 4%;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 1000;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0));
+    transition: background 0.3s;
+}
+.navbar.scrolled { background: var(--dark); }
+.logo { color: var(--primary); font-size: 25px; font-weight: bold; text-decoration: none; }
+.nav-right a { color: var(--light); text-decoration: none; margin-left: 20px; font-size: 14px; }
+
+/* --- HERO SECTION (YouTube Background Fix) --- */
+.hero {
+    position: relative;
+    height: 90vh;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-background {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.video-background iframe {
+    width: 100vw;
+    height: 56.25vw; 
+    min-height: 100vh;
+    min-width: 177.77vh;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.8;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; 
+    height: 400px;
+    background: linear-gradient(to top, var(--dark) 20%, rgba(20,20,20,0.6) 50%, transparent);
+    z-index: 1;
+}
+
+.hero-content {
+    position: absolute; 
+    bottom: 180px; 
+    left: 4%; 
+    max-width: 600px; 
+    z-index: 2;
+}
+
+.hero-title { font-size: 60px; font-weight: 800; margin-bottom: 20px; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+.hero-desc { font-size: 1.2rem; margin-bottom: 20px; text-shadow: 1px 1px 2px rgba(0,0,0,0.9); line-height: 1.5; }
+.buttons { display: flex; gap: 10px; }
+.btn { padding: 10px 25px; border-radius: 4px; font-weight: bold; border: none; cursor: pointer; display: flex; align-items: center; }
+.btn-white { background: white; color: black; }
+.btn-gray { background: rgba(109, 109, 110, 0.7); color: white; }
+.btn:hover { opacity: 0.8; }
+
+/* --- MOVIE ROWS (Horizontal Scroll) --- */
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    margin-top: -100px;
+    padding-bottom: 50px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.category-title { 
+    margin: 0 0 10px 4%; 
+    font-size: 1.2rem; 
+    font-weight: 600; 
+    color: #e5e5e5; 
+    padding-top: 20px;
+}
+
+.row-container {
+    display: flex;
+    /* PADDING: 4% on both sides to create equal gaps */
+    padding: 10px 4%; 
+    
+    margin-bottom: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    gap: 10px;
+    
+    /* Ensure padding works on the right side */
+    padding-right: 4%;
+}
+
+.row-container::-webkit-scrollbar { display: none; }
+
+
+
+/* --- UPDATED MOVIE CARD HOVER LOGIC --- */
+.movie-card {
+    flex: 0 0 auto; 
+    width: 18vw; 
+    min-width: 200px;
+    max-width: 350px; 
+    aspect-ratio: 2 / 3; 
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    margin: 0;
+
+    /* 1. Smoother timing function: cubic-bezier makes it feel "snappy" but graceful */
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.45s ease;
+    
+    /* 2. Hardware acceleration: tells the GPU to handle the animation for 60fps smoothness */
+    will-change: transform; 
+}
+
+.movie-card img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+.movie-card:hover { 
+    /* 3. Removed margin changes to prevent the row from "jumping" or shifting */
+    transform: scale(1.12); 
+    z-index: 100; 
+    
+    /* 4. Added a subtle glow/shadow to create a "pop out" depth effect */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.7);
+}
+
+
+
+
+/* --- TOP 5 SPECIFIC FIX (Responsive) --- */
+.top-10-container {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    
+    /* NEW: Width adjusts to screen */
+    min-width: 30vw; 
+    
+    margin-right: -40px; 
+    transition: transform 0.3s;
+    position: relative;
+}
+
+.top-10-container:hover { 
+    transform: scale(1.05); 
+    z-index: 100; 
+}
+
+.rank-num {
+    /* NEW: Number size scales with screen */
+    font-size: 15vw; 
+    max-font-size: 220px; /* Cap size */
+    
+    font-weight: 900;
+    color: var(--dark);
+    -webkit-text-stroke: 4px #595959;
+    position: relative;
+    right: -2vw; /* Relative positioning */
+    z-index: 1;
+    line-height: 1;
+    font-family: impact, sans-serif;
+}
+
+.top-10-img {
+    /* NEW: Image scales with screen */
+    width: 16vw; 
+    min-width: 180px;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    
+    border-radius: 4px;
+    z-index: 2;
+    object-fit: cover;
+}
+
+/* FORMS */
+.form-container {
+    max-width: 450px;
+    margin: 100px auto;
+    background: rgba(0,0,0,0.75);
+    padding: 60px;
+    border-radius: 4px;
+    text-align: left;
+}
+input, textarea {
+    width: 100%; background: #333; border: none; border-radius: 4px;
+    height: 50px; color: white; padding: 0 20px; margin-bottom: 20px;
+}
+textarea { height: 120px; padding-top: 15px; }
+button[type="submit"] {
+    width: 100%; height: 50px; background: var(--primary); color: white;
+    border: none; border-radius: 4px; font-weight: bold; cursor: pointer;
+}
+
+
+
+/* --- PROFESSIONAL REVIEW SECTION --- */
+.reviews-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 15px;
+}
+
+.section-header h2 {
+    color: #fff;
+    font-size: 24px;
+    margin: 0;
+    border-left: 5px solid #e50914; /* Netflix Red Accent */
+    padding-left: 15px;
+}
+
+/* The Write Review Box */
+.review-form-card {
+    background: #181818;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 50px;
+    border: 1px solid #333;
+}
+
+.review-form-card h3 {
+    margin-top: 0;
+    color: #e5e5e5;
+}
+
+.review-form-card textarea {
+    background: #2f2f2f;
+    border: 1px solid #444;
+    color: white;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.review-form-card textarea:focus {
+    background: #404040;
+    border-color: #e50914;
+    outline: none;
+}
+
+/* Individual Reviews */
+.review-card {
+    display: flex;
+    gap: 20px;
+    padding: 25px 0;
+    border-bottom: 1px solid #2f2f2f;
+    animation: fadeIn 0.5s ease;
+}
+
+.review-avatar {
+    width: 50px;
+    height: 50px;
+    background-color: #e50914;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px; /* Netflix style square avatars */
+    flex-shrink: 0;
+}
+
+.review-content {
+    flex: 1;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.review-author {
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.review-date {
+    color: #777;
+    font-size: 13px;
+}
+
+.star-rating {
+    color: #e50914; /* Red stars match the theme better than yellow */
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.review-text {
+    color: #ccc;
+    line-height: 1.6;
+    font-size: 15px;
+    margin: 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

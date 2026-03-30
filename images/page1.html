@@ -1,0 +1,140 @@
+<html>
+<head>
+<style>
+body {
+    background-color: black;
+    color: white;
+    font-family: "Times New Roman";
+    text-align: center;
+}
+
+fieldset {
+    width: 50%;
+    margin: auto;
+    border: 2px solid white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+p {
+    text-align: left;
+    margin: 10px;
+}
+
+input[type="text"], select {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.gender-options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+input[type="submit"], input[type="reset"] {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+input[type="submit"]:hover, input[type="reset"]:hover {
+    background-color: darkred;
+}
+</style>
+<script>
+function validation() {
+    var firstName = document.forms["signupForm"]["firstName"].value;
+    var lastName = document.forms["signupForm"]["lastName"].value;
+    var gender = document.forms["signupForm"]["gender"].value;
+    var state = document.forms["signupForm"]["state"].value;
+    var city = document.forms["signupForm"]["city"].value;
+    var genre = document.forms["signupForm"]["genre"].value;
+
+    if (firstName == "" || lastName == "") {
+        alert("Please enter your first or last name.");
+        return false;
+    }
+    if (gender == "") {
+        alert("Please select your gender.");
+        return false;
+    }
+    if (state == "" || city == "") {
+        alert("Please select your state or city.");
+        return false;
+    }
+    if (genre == "") {
+        alert("Please select your genre.");
+        return false;
+    }
+    return true;
+}
+</script>
+</head>
+<body>
+<center>
+    <h2 style="color:red;">Sign up</h2>
+</center>
+<form name="signupForm" action="page2.html" method="get" onsubmit="return validation()">
+    <fieldset>
+        <p>Enter your first name: <input type="text" name="firstName"></p>
+        <p>Enter your last name: <input type="text" name="lastName"></p>
+        <p>Gender:</p>
+        <div class="gender-options">
+            <label><input type="radio" name="gender" value="Male"> Male</label>
+            <label><input type="radio" name="gender" value="Female"> Female</label>
+            <label><input type="radio" name="gender" value="Others"> Others</label>
+        </div>
+        <p>Select State:
+            <select name="state">
+                <option value="">Select</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Punjab">Punjab</option>
+            </select>
+        </p>
+        <p>Select City:
+            <select name="city">
+                <option value="">Select</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Surat">Surat</option>
+                <option value="Firozabad">Firozabad</option>
+                <option value="Kochi">Kochi</option>
+                <option value="Amritsar">Amritsar</option>
+            </select>
+        </p>
+        <p>Select Genre in Movies:
+            <select name="genre">
+                <option value="">Select</option>
+                <option value="Horror">Horror</option>
+                <option value="Action">Action</option>
+                <option value="Drama">Drama</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Romantic">Romantic</option>
+            </select>
+        </p>
+        <div class="button-container">
+            <input type="submit" value="Submit">
+            <input type="reset" value="Clear All">
+        </div>
+    </fieldset>
+</form>
+</body>
+</html>

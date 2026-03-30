@@ -1,0 +1,70 @@
+<html>
+<head>
+<script>
+function validateForm() {
+var address = document.forms["personalForm"]["address"].value;
+var email = document.forms["personalForm"]["email"].value;
+var password = document.forms["personalForm"]["password"].value;
+var dob = document.forms["personalForm"]["dob"].value;
+        
+if (address === "") {
+alert("Address must be filled out.");
+return false;
+}
+if (email === "") {
+alert("Email must be filled out.");
+return false;
+}
+if (password === "") {
+alert("Password must be filled out.");
+return false;
+}
+if (dob === "") {
+alert("Date of Birth must be selected.");
+return false;
+}
+return true;
+}
+</script>
+<style>
+    body {
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+    }
+    fieldset {
+        border: 2px solid white;
+        padding: 20px;
+        width: 50%;
+        margin: auto;
+        border-radius: 10px;
+    }
+    input, textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+    }
+</style>
+</head>
+<body>
+<center>
+    <h2 style="color: red;">Personal Information</h2>
+</center>
+<form name="personalForm" action="page3.html" method="get" onsubmit="return validateForm()">
+<fieldset>
+<p>
+Please Enter Your Address:<br>
+<textarea name="address" cols="30" rows="4" placeholder="Ex. FlatNo, Sector, Landmark"></textarea><br><br>
+Enter Your Email:<br>
+<input type="text" name="email"><br><br>
+Enter Your Password:<br>
+<input type="password" name="password"><br><br>
+Date of Birth:<br>
+<input type="date" name="dob"><br><br>
+<button type="submit">Submit</button>
+<input type="reset" value="Clear All">
+</p>
+</fieldset>
+</form>
+</body>
+</html>
